@@ -1,0 +1,8 @@
+Origin: iMokhles
+Label: imokhles repo
+Suite: stable
+Version: 1.1
+Codename:
+Architectures: iphoneos-arm
+Components: main
+Description: iMokhles Personal Repo
