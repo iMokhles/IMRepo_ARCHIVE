@@ -14,8 +14,11 @@ class CreateChangelogsTable extends Migration
     public function up()
     {
         Schema::create('changelogs', function (Blueprint $table) {
-            $table->integer('package_id')->index('package_id')->nullable();
-            $table->text('changelog_text')->nullable();
+            $table->increments('id');
+            $table->longText('changelog_text')->nullable();
+            $table->string('package_version')->nullable();
+            $table->string('package_hash')->nullable();
+            $table->string('package_bundle')->nullable();
             $table->timestamps();
         });
     }

@@ -36,9 +36,9 @@
                     @if($files_uploaded == null)
                         <h3>Maximum upload file size is <strong>{{ini_get("upload_max_filesize")}}B</strong></h3>
                         <center>
-                            <form action="{{ url('admin/upload_package')}}" method="post" class="dropzone" id="my-awesome-dropzone" enctype="multipart/form-data">
+                            <form action="{{ url('admin/upload_package')}}" method="POST" class="dropzone" id="my-awesome-dropzone" enctype="multipart/form-data">
                                 <div class="fallback">
-                                    <input name="file" type="file" multiple />
+                                    <input name="file[]" type="file" multiple />
                                     <input name="hidden" type="_token" value='{{ csrf_token() }}'/>
                                 </div>
                                 {{ csrf_field() }}
@@ -58,15 +58,64 @@
             <script src="{{ asset('dropzone') }}/dropzone.js"></script>
 
             <script>
+
+                var global_files = [];
+                var global_media = [];
                 Dropzone.options.myAwesomeDropzone = {
-                    paramName: "file", // The name that will be used to transfer the file
                     maxFilesize: 30, // MB
-                    maxFiles: 5,
-                    uploadMultiple: true,
+                    maxFiles:15,
                     addRemoveLinks: true,
+                    paramName: "file",
+                    uploadMultiple: false,
                     dictResponseError: 'Server not Configured',
+                    dictFileTooBig: 'Deb is bigger than 30MB',
                     dictDefaultMessage: '<strong style="font-size: 20px">Upload Debs</strong><br/><small class="muted" style="font-size: 20px">Select or Drag & Drop <br>Deb From Your Device</small>',
-                    acceptedFiles: ".deb"
+                    acceptedFiles: ".deb",
+                    init: function () {
+                        var self = this;
+                        // config
+                        self.options.addRemoveLinks = true;
+                        self.options.dictRemoveFile = "Delete";
+                        //New file added
+                        self.on("addedfile", function (file) {
+                            //   global_files.push(file);
+                            // console.log('new file added ', file);
+                        });
+                        // Send file starts
+                        self.on("sending", function (file) {
+                            console.log('upload started', file);
+                            $('.meter').show();
+                        });
+                        // File upload Progress
+                        self.on("totaluploadprogress", function (progress) {
+                            console.log("progress ", progress);
+                            $('.roller').width(progress + '%');
+                        });
+                        self.on("queuecomplete", function (progress) {
+                            $('.meter').delay(999).slideUp(999);
+                        });
+                        // On removing file
+                        self.on("removedfile", function (file) {
+                            //find index of
+                            let leng = global_files.length;
+                            let index = -1;
+                            for (var i = 0; i < leng; i++) {
+                                if (JSON.stringify(global_files[i]) === JSON.stringify(file)) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1) {
+                                global_files.splice(index, 1);
+                                global_media.splice(index, 1);
+                            }
+                        });
+                        self.on("success", function (file, response) {
+                            global_files.push(file);
+                            global_media.push(response.data);
+                            console.log('=========>data', response);
+                        });
+                    }
                 };
             </script>
 @endsection

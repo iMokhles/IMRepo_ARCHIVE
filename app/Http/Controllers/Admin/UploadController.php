@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Repositories\PackagesRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use App\Helpers\Helper;
 
@@ -33,8 +34,7 @@ class UploadController extends Controller
     }
     public function store(Request $request)
     {
-
-        return null;
+        return  $this->package->upload($request, $request->file('file'));
 
     }
 

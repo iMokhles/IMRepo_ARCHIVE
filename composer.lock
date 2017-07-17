@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d6c401f759a7bc50058405c7a89a3a8",
+    "content-hash": "a0faab749be1800692b8a42b37fa4493",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -2629,6 +2629,46 @@
                 "shell"
             ],
             "time": "2017-06-04T10:34:20+00:00"
+        },
+        {
+            "name": "rachidlaasri/laravel-installer",
+            "version": "3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RachidLaasri/LaravelInstaller.git",
+                "reference": "a16c3574b9e66cdc05b8e0096efe0de71053a8d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RachidLaasri/LaravelInstaller/zipball/a16c3574b9e66cdc05b8e0096efe0de71053a8d2",
+                "reference": "a16c3574b9e66cdc05b8e0096efe0de71053a8d2",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RachidLaasri\\LaravelInstaller\\": "src/"
+                },
+                "files": [
+                    "src/Helpers/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rachid Laasri",
+                    "email": "rashidlaasri@gmail.com"
+                },
+                {
+                    "name": "Jeremy Kenedy",
+                    "email": "jeremykenedy@gmail.com"
+                }
+            ],
+            "description": "Laravel web installer",
+            "time": "2017-07-17T10:06:21+00:00"
         },
         {
             "name": "ramsey/uuid",

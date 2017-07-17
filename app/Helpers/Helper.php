@@ -11,6 +11,36 @@ namespace App\Helpers;
 
 class Helper
 {
+    function formatSizeUnits($bytes)
+    {
+        if ($bytes >= 1073741824)
+        {
+            $bytes = number_format($bytes / 1073741824, 2) . ' GB';
+        }
+        elseif ($bytes >= 1048576)
+        {
+            $bytes = number_format($bytes / 1048576, 2) . ' MB';
+        }
+        elseif ($bytes >= 1024)
+        {
+            $bytes = number_format($bytes / 1024, 2) . ' KB';
+        }
+        elseif ($bytes > 1)
+        {
+            $bytes = $bytes . ' bytes';
+        }
+        elseif ($bytes == 1)
+        {
+            $bytes = $bytes . ' byte';
+        }
+        else
+        {
+            $bytes = '0 bytes';
+        }
+
+        return $bytes;
+    }
+
     function GetPkgInfo($filename)
     {
         // Open file
@@ -104,7 +134,7 @@ class Helper
                             $control['MD5sum'] = md5_file($filename);
                             if ($control['MD5sum'] === false)
                                 return false;
-                            $control["Filename"] = $filename;
+                            $control["Filename"] = "debs/".basename($filename, '.deb');
                             return $control;
                         }
                     }
@@ -209,13 +239,13 @@ class Helper
             return false;
         $packages = array();
         foreach ($debs as $deb) {
-            if (($control = $this->GetPkgInfo($deb)) === false)
+            if (($control = self::GetPkgInfo($deb)) === false)
                 continue;
             if (!isset($packages[$control['Package']]))
                 $packages[$control['Package']] = $control;
             else
                 // Compare version numbers
-                if ($this->CompareVersions($control['Version'], $packages[$control['Package']]['Version']) > 0)
+                if (self::CompareVersions($control['Version'], $packages[$control['Package']]['Version']) > 0)
                     $packages[$control['Package']] = $control;
         }
         $packages_string = "";
@@ -227,5 +257,28 @@ class Helper
             $packages_string .= "\n";
         }
         return $packages_string;
+    }
+
+    function GeneratePackagesArrayInfo($dir)
+    {
+        if (($debs = glob($dir . "/*.deb")) === false)
+            return false;
+        $packages = array();
+        foreach ($debs as $deb) {
+            if (($control = self::GetPkgInfo($deb)) === false)
+                continue;
+            if (!isset($packages[$control['Package']]))
+                $packages[$control['Package']] = $control;
+            else
+                // Compare version numbers
+                if (self::CompareVersions($control['Version'], $packages[$control['Package']]['Version']) > 0)
+                    $packages[$control['Package']] = $control;
+        }
+        $packages_array = [];
+        foreach ($packages as $info)
+        {
+            array_push($packages_array, $info);
+        }
+        return $packages_array;
     }
 }

@@ -14,8 +14,12 @@ class CreateScreenshotsTable extends Migration
     public function up()
     {
         Schema::create('screenshots', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('package_id')->index('package_id')->nullable();
-            $table->text('image_path')->nullable();
+            $table->string('image_path')->nullable();
+            $table->string('image_hash')->nullable();
+            $table->string('image_md5')->nullable();
+            $table->string('image_ext')->nullable();
             $table->timestamps();
         });
     }

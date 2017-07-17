@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\IMHelper;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
@@ -21,22 +22,73 @@ class ScreenshotsCrudController extends CrudController
         $this->crud->setModel('App\Models\Screenshots');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/screenshots');
         $this->crud->setEntityNameStrings('screenshots', 'screenshots');
-
+        $this->crud->enableAjaxTable();
         /*
         |--------------------------------------------------------------------------
         | BASIC CRUD INFORMATION
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+//        $this->crud->setFromDb();
 
         // ------ CRUD FIELDS
+        $this->crud->addFields([
+            [
+                'label' => "Package",
+                'name' => "package_id",
+                'model' => "App\Models\Packages",
+                'entity' => "package",
+                'attribute' => "Name",
+                'type' => "select2_from_ajax",
+                'placeholder' => "Select a Package",
+                'minimum_input_length' => 1,
+                'data_source' => url("api/v1/packages"),
+            ],
+            [   // Upload
+                'name' => 'image_path',
+                'label' => 'ScreenShot',
+                'type' => 'upload',
+                'upload' => true,
+                'disk' => 'storage' // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;
+            ],
+
+        ]);
         // $this->crud->addField($options, 'update/create/both');
         // $this->crud->addFields($array_of_arrays, 'update/create/both');
         // $this->crud->removeField('name', 'update/create/both');
         // $this->crud->removeFields($array_of_names, 'update/create/both');
 
         // ------ CRUD COLUMNS
+        $this->crud->addColumns([
+            [
+                'name' => "id",
+                'label' => "ID"
+            ],
+            [
+                'label' => "Package",
+                'name' => "package_id",
+                'model' => "App\Models\Packages",
+                'entity' => "package",
+                'attribute' => "Name",
+                'type' => "select",
+            ],
+            [
+                'name' => "image_path",
+                'label' => "Image Path"
+            ],
+            [
+                'name' => "image_hash",
+                'label' => "Image Hash"
+            ],
+            [
+                'name' => "image_md5",
+                'label' => "Image MD5"
+            ],
+            [
+                'name' => "image_ext",
+                'label' => "Image Ext"
+            ],
+        ]);
         // $this->crud->addColumn(); // add a single column, at the end of the stack
         // $this->crud->addColumns(); // add multiple columns, at the end of the stack
         // $this->crud->removeColumn('column_name'); // remove a column from the stack

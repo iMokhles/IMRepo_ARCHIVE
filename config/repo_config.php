@@ -3,6 +3,7 @@
 return [
 
     "packages_select" => [
+        "Package",
         "Version",
         "Priority",
         "Section",
@@ -10,10 +11,13 @@ return [
         "Architecture",
         "Filename",
         "Size",
+        "Downloads",
         "Description",
         "Name",
         "Author",
+        "Maintainer",
         "Depiction",
-        "MD5sum"
+        "MD5sum",
+        "package_hash",
     ],
 ];

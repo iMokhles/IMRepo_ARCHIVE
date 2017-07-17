@@ -19,8 +19,9 @@ class PackagesCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->crud->setModel('App\Models\Packages');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/packages');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/packages-list');
         $this->crud->setEntityNameStrings('packages', 'packages');
+        $this->crud->enableAjaxTable();
 
         /*
         |--------------------------------------------------------------------------
@@ -28,7 +29,7 @@ class PackagesCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+//        $this->crud->setFromDb();
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
@@ -38,7 +39,40 @@ class PackagesCrudController extends CrudController
 
         // ------ CRUD COLUMNS
         // $this->crud->addColumn(); // add a single column, at the end of the stack
-        // $this->crud->addColumns(); // add multiple columns, at the end of the stack
+         $this->crud->addColumns([
+             [
+                 'name' => 'id',
+                 'label' => 'ID',
+             ],
+             [
+                 'name' => 'Package',
+                 'label' => 'Package',
+             ],
+             [
+                 'name' => 'Name',
+                 'label' => 'Name',
+             ],
+             [
+                 'name' => 'Version',
+                 'label' => 'Version',
+             ],
+             [
+                 'name' => 'Size',
+                 'label' => 'Size',
+             ],
+             [
+                 'name' => 'Installed-Size',
+                 'label' => 'Installed Size',
+             ],
+             [
+                 'name' => 'package_hash',
+                 'label' => 'Package Hash',
+             ],
+             [
+                 'name' => 'Stat',
+                 'label' => 'Stat',
+             ],
+         ]); // add multiple columns, at the end of the stack
         // $this->crud->removeColumn('column_name'); // remove a column from the stack
         // $this->crud->removeColumns(['column_name_1', 'column_name_2']); // remove an array of columns from the stack
         // $this->crud->setColumnDetails('column_name', ['attribute' => 'value']); // adjusts the properties of the passed in column (by name)
@@ -56,7 +90,7 @@ class PackagesCrudController extends CrudController
 
         // ------ CRUD ACCESS
         // $this->crud->allowAccess(['list', 'create', 'update', 'reorder', 'delete']);
-        // $this->crud->denyAccess(['list', 'create', 'update', 'reorder', 'delete']);
+         $this->crud->denyAccess(['create', 'reorder']);
 
         // ------ CRUD REORDER
         // $this->crud->enableReorder('label_name', MAX_TREE_LEVEL);
@@ -94,7 +128,7 @@ class PackagesCrudController extends CrudController
         // $this->crud->addClause('withoutGlobalScopes');
         // $this->crud->addClause('withoutGlobalScope', VisibleScope::class);
         // $this->crud->with(); // eager load relationships
-        // $this->crud->orderBy();
+         $this->crud->orderBy('created_at', 'desc');
         // $this->crud->groupBy();
         // $this->crud->limit();
     }

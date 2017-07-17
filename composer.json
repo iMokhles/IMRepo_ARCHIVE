@@ -18,6 +18,8 @@
         "laravel/tinker": "~1.0",
         "orangehill/iseed": "dev-master",
         "ozanakman/laravel-repository-generator": "^0.02.0",
+        "rachidlaasri/laravel-installer": "^3.0",
+        "ramsey/uuid": "^3.6",
         "rukhsar/traitcommand": "^1.1"
     },
     "require-dev": {

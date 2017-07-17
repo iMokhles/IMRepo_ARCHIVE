@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\CommentAbleTrait;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use Illuminate\Support\Facades\Storage;
 
 class Packages extends Model
 {
@@ -23,7 +24,13 @@ class Packages extends Model
     public $timestamps = true;
     protected $guarded = ['id'];
     protected $fillable = [
-
+        'Package',
+        'Name',
+        'Version',
+        'Size',
+        'Installed-Size',
+        'package_hash',
+        'Stat'
     ];
 //    protected $hidden = [];
     protected $dates = ['created_at', 'updated_at'];
@@ -33,6 +40,14 @@ class Packages extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function($obj) {
+            $delete_path = "debs/".$obj->package_hash.".deb";
+            Storage::disk('storage')->delete($delete_path);
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------

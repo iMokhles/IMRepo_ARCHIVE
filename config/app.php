@@ -171,6 +171,7 @@ return [
         Jenssegers\Agent\AgentServiceProvider::class,
         OzanAkman\RepositoryGenerator\RepositoryGeneratorServiceProvider::class,
         Rukhsar\TraitCommand\TraitCommandServiceProvider::class,
+        RachidLaasri\LaravelInstaller\Providers\LaravelInstallerServiceProvider::class,
 
         /*
         * Backpack Service Providers...

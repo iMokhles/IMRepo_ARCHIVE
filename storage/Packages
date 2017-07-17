@@ -1,0 +1,72 @@
+Package: com.imokhles.safuploadany
+Version: 1.1-4
+Section: Tweaks
+Depends: mobilesubstrate, firmware (>= 9.0), com.imokhles.imodevtools
+Architecture: iphoneos-arm
+Filename: debs/koMu4qIvxu
+Size: 101486
+Description: upload any file from Safari iOS 9
+Name: SAFUploadAny iOS9
+Author: iMokhles <mokhleshussien@aol.com>
+MD5sum: 9cfabdf0a0339ea0573f6218cacaaa45
+
+Package: com.imokhles.safuploadany
+Version: 1.1-3
+Section: Tweaks
+Depends: mobilesubstrate, firmware (>= 9.0), com.imokhles.imodevtools
+Architecture: iphoneos-arm
+Filename: debs/p2W26WqFr9
+Size: 99022
+Description: upload any file from Safari iOS 9
+Name: SAFUploadAny iOS9
+Author: iMokhles <mokhleshussien@aol.com>
+MD5sum: 6a9febdda3d24adfb325935ec9cf433b
+
+Package: com.imokhles.safuploadany
+Version: 1.1-1
+Section: Tweaks
+Depends: mobilesubstrate, firmware (>= 9.0)
+Architecture: iphoneos-arm
+Filename: debs/IwbNy9ymfo
+Size: 99004
+Description: upload any file from Safari iOS 9
+Name: SAFUploadAny iOS9
+Author: iMokhles <mokhleshussien@aol.com>
+MD5sum: 9ea39b15aa784692428d025c8a71d68d
+
+Package: com.imokhles.safuploadany
+Version: 1.0-3
+Section: Tweaks
+Depends: mobilesubstrate, firmware (>= 8.0)
+Architecture: iphoneos-arm
+Filename: debs/7Mqbh9fxxo
+Size: 98610
+Description: upload any file from Safari iOS 8/9
+Name: SAFUploadAny
+Author: iMokhles <mokhleshussien@aol.com>
+MD5sum: 4e4efab62e64327e717536209e649457
+
+Package: com.imokhles.safuploadany
+Version: 1.0-2
+Section: Tweaks
+Depends: mobilesubstrate, firmware (>= 8.0)
+Architecture: iphoneos-arm
+Filename: debs/9BL94cvYfU
+Size: 98616
+Description: upload any file from Safari iOS 8/9
+Name: SAFUploadAny
+Author: iMokhles <mokhleshussien@aol.com>
+MD5sum: ef288d36ec16bece4155f4f9739bcb77
+
+Package: com.imokhles.safuploadany
+Version: 1.0-1
+Section: Tweaks
+Depends: mobilesubstrate, firmware (>= 8.0)
+Architecture: iphoneos-arm
+Filename: debs/HfcLrEs3j7
+Size: 98612
+Description: upload any file from Safari iOS 8/9
+Name: SAFUploadAny
+Author: iMokhles <mokhleshussien@aol.com>
+MD5sum: 3572af4661b776bfcf707ed9b7cc6da7
+

@@ -21,6 +21,7 @@ class ChangelogsCrudController extends CrudController
         $this->crud->setModel('App\Models\Changelogs');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/changelogs');
         $this->crud->setEntityNameStrings('changelogs', 'changelogs');
+        $this->crud->enableAjaxTable();
 
         /*
         |--------------------------------------------------------------------------
@@ -28,15 +29,40 @@ class ChangelogsCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+//        $this->crud->setFromDb();
 
         // ------ CRUD FIELDS
+        $this->crud->addFields([
+            [
+                'name' => 'changelog_text',
+                'label' => 'Enter Change Log',
+                'type' => 'wysiwyg',
+            ],
+        ]);
         // $this->crud->addField($options, 'update/create/both');
         // $this->crud->addFields($array_of_arrays, 'update/create/both');
         // $this->crud->removeField('name', 'update/create/both');
         // $this->crud->removeFields($array_of_names, 'update/create/both');
 
         // ------ CRUD COLUMNS
+        $this->crud->addColumns([
+            [
+                'name' => "id",
+                'label' => "ID"
+            ],
+            [
+                'name' => "package_version",
+                'label' => "Package Version"
+            ],
+            [
+                'name' => "package_hash",
+                'label' => "Package Hash"
+            ],
+            [
+                'name' => "package_bundle",
+                'label' => "Package Bundle"
+            ],
+        ]);
         // $this->crud->addColumn(); // add a single column, at the end of the stack
         // $this->crud->addColumns(); // add multiple columns, at the end of the stack
         // $this->crud->removeColumn('column_name'); // remove a column from the stack

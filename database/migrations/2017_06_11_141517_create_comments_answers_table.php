@@ -14,6 +14,7 @@ class CreateCommentsAnswersTable extends Migration
     public function up()
     {
         Schema::create('comments_answers', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('comment_id')->index('comment_id')->nullable();
             $table->longText('comment');
             $table->boolean('approved')->default(true);

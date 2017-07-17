@@ -23,9 +23,18 @@
 
 
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/user') }}"><i class="fa fa-user"></i> <span>Users</span></a></li>
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/packages') }}"><i class="fa fa-list-alt"></i> <span>Packages</span></a></li>
+
+          <li class="treeview">
+            <a href="#"><i class="fa fa-globe"></i> <span>Packages</span> <i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+              <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/packages-list') }}"><i class="fa fa-area-chart"></i> <span>All Packages</span></a></li>
+              <li><a href="{{ url(config('backpack.base.route_prefix', 'admin').'/upload_package') }}"><i class="fa fa-upload"></i>Upload Packages</a></li>
+            </ul>
+          </li>
+
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/udids') }}"><i class="fa fa-list"></i> <span>UDIDs</span></a></li>
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/payments') }}"><i class="fa fa-money"></i> <span>Payments</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/depictions') }}"><i class="fa fa-info-circle"></i> <span>Depictions</span></a></li>
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/changelogs') }}"><i class="fa fa-repeat"></i> <span>Change Logs</span></a></li>
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/screenshots') }}"><i class="fa fa-file-image-o"></i> <span>ScreenShots</span></a></li>
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/activities') }}"><i class="fa fa-area-chart"></i> <span>Activities</span></a></li>
