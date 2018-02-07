@@ -54,7 +54,7 @@
 @endsection
 
 @section('after_scripts')
-            <script src="https://cdn.rawgit.com/jprichardson/string.js/master/lib/string.min.js"></script>
+            <script src="https://cdn.rawgit.com/jprichardson/string.js/master/dist/string.min.js"></script>
             <script src="{{ asset('dropzone') }}/dropzone.js"></script>
 
             <script>
@@ -63,7 +63,7 @@
                 var global_media = [];
                 Dropzone.options.myAwesomeDropzone = {
                     maxFilesize: 30, // MB
-                    maxFiles:15,
+                    maxFiles:25,
                     addRemoveLinks: true,
                     paramName: "file",
                     uploadMultiple: false,
@@ -114,6 +114,12 @@
                             global_files.push(file);
                             global_media.push(response.data);
                             console.log('=========>data', response);
+                        });
+
+                        self.on("error", function (file, response) {
+//                            global_files.push(file);
+//                            global_media.push(response.data);
+                            console.log('=========>Error', response);
                         });
                     }
                 };

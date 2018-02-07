@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
@@ -17,16 +18,16 @@ class Comments extends Model
 
     protected $table = 'comments';
     protected $primaryKey = 'id';
-     public $timestamps = true;
-     protected $guarded = ['id'];
-     protected $fillable = [
+    public $timestamps = true;
+    protected $guarded = ['id'];
+    protected $fillable = [
          'user_id',
          'comment',
          'rate',
          'approved',
          'package_id',
          'commented_type'
-     ];
+    ];
     // protected $hidden = [];
     protected $dates = ['created_at', 'updated_at'];
     protected $casts = [
@@ -34,18 +35,18 @@ class Comments extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function package()
     {
-        return $this->morphTo();
+        return $this->belongsTo(Packages::class);
     }
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->morphTo();
+        return $this->belongsTo(User::class);
     }
     /**
      * @return $this

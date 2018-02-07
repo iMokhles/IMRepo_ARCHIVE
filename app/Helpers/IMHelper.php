@@ -78,6 +78,15 @@ class IMHelper
         }
         return DB::table($table)->insert($data);
     }
+    public static function insertToTableGetId($table,$data=[]) {
+        $data['id'] = DB::table($table)->max('id') + 1;
+        if (array_key_exists('created_at', $data)) {
+            if(Schema::hasColumn($table,'created_at')) {
+                $data['created_at'] = date('Y-m-d H:i:s');
+            }
+        }
+        return DB::table($table)->insertGetId($data);
+    }
     public static function updateRecord($table, $id, $data=[]) {
         if (array_key_exists('updated_at', $data)) {
             if(Schema::hasColumn($table,'updated_at')) {
@@ -170,5 +179,13 @@ class IMHelper
 
         return $packages[$package_bundle]->Version;
     }
-
+    public static function isPaidPackage($hash) {
+        $package = self::allWhere('packages', [
+            'package_hash' => $hash
+        ]);
+        $package = $package[0];
+        if ($package != null) {
+            return $package->Purchase_Link_Stat;
+        }
+    }
 }

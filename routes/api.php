@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +16,4 @@ use Illuminate\Http\Request;
 
 Route::get('/test_info', 'Repo\PackagesController@test_info');
 Route::get('/packages', 'Repo\ApiController@packages');
+Route::get('/users', 'Repo\ApiController@users');

@@ -13,6 +13,9 @@
         "backpack/logmanager": "^2.3",
         "backpack/permissionmanager": "^2.1",
         "backpack/settings": "^2.0",
+        "barryvdh/laravel-ide-helper": "^2.4",
+        "dbeurive/gpg": "dev-master",
+        "dingo/api": "dev-master",
         "jenssegers/agent": "^2.5",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
@@ -20,7 +23,9 @@
         "ozanakman/laravel-repository-generator": "^0.02.0",
         "rachidlaasri/laravel-installer": "^3.0",
         "ramsey/uuid": "^3.6",
-        "rukhsar/traitcommand": "^1.1"
+        "rukhsar/traitcommand": "^1.1",
+        "singpolyma/openpgp-php": "dev-master",
+        "splitbrain/php-archive": "^1.0"
     },
     "require-dev": {
         "backpack/generators": "^1.1",

@@ -32,6 +32,11 @@ class PackagesRepository extends Repository implements PackagesRepositoryInterfa
         ])->setStatusCode($error_code, Response::$statusTexts[$error_code]);
     }
 
+    protected function sendUploadErrorResponse($message, $error_code)
+    {
+        return response()->json($message)->setStatusCode($error_code, Response::$statusTexts[$error_code]);
+    }
+
     public function upload( Request $request, $fileVar ) {
 
         $validator = Validator::make(
@@ -65,16 +70,16 @@ class PackagesRepository extends Repository implements PackagesRepositoryInterfa
                         if (strlen($path) > 5) {
                             return $this->sendResponse("File Uploaded To Path: ".$path, Response::HTTP_OK);
                         } else {
-                            return $this->sendResponse("Failed", Response::HTTP_OK);
+                            return $this->sendUploadErrorResponse("Failed", Response::HTTP_BAD_REQUEST);
                         }
                     } else {
-                        return $this->sendResponse("Failed Already Exist", Response::HTTP_OK);
+                        return $this->sendUploadErrorResponse("Failed Already Exist", Response::HTTP_BAD_REQUEST);
                     }
 
                 }
 
             } else {
-                return $this->sendResponse("Failed", Response::HTTP_OK);
+                return $this->sendUploadErrorResponse("Failed", Response::HTTP_BAD_REQUEST);
             }
         } else {
             return $this->sendResponse($validator->errors()->getMessages(), Response::HTTP_OK);
@@ -95,19 +100,20 @@ class PackagesRepository extends Repository implements PackagesRepositoryInterfa
 
             $control_info['Stat'] = true;
             $control_info['package_hash'] = $file_name;
+            $control_info['user_id'] = \Auth::user()->id;
             $control_info['created_at'] = Carbon::now();
             $control_info['updated_at'] = Carbon::now();
-            $inserted = IMHelper::insertToTable('packages', $control_info);
+            $inserted = IMHelper::insertToTableGetId('packages', $control_info);
 
 //            $inserted = Packages::create($control_info);
-            if ($inserted) {
-                $this->saveChangeLog($control_info);
+            if ($inserted > 0) {
+                $this->saveChangeLog($control_info, $inserted);
             }
             return $inserted;
         }
     }
 
-    public function saveChangeLog($package_info) {
+    public function saveChangeLog($package_info, $package_id) {
 
         $isExist = IMHelper::first('packages', [
             'Package' => $package_info['Package'],
@@ -122,6 +128,7 @@ class PackagesRepository extends Repository implements PackagesRepositoryInterfa
             $text = "* new release";
         }
         $inserted = IMHelper::insertToTable('changelogs', [
+            'package_id' => $package_id,
             'package_hash' => $package_info['package_hash'],
             'package_version' => $package_info['Version'],
             'changelog_text' => $text,

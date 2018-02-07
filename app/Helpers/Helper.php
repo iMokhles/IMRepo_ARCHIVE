@@ -118,14 +118,45 @@ class Helper
                             if ($reqfl >= strlen($control_string))
                                 return false;
                             $control_string = substr($control_string, 512, $size);
-                            $control_fields = explode("\n", $control_string);
+//                            $control_fields = explode("\n", $control_string);
+
+                            $plain_array = explode("\n",$control_string);
                             $control = array();
-                            foreach ($control_fields as $field) {
-                                if (!strlen($field))
-                                    continue;
-                                $tmp = explode(":", $field, 2);
-                                $control[$tmp[0]] = trim($tmp[1]);
+                            $t_key = "";
+                            foreach ($plain_array as $line) {
+                                if (strlen(trim(substr($line, 0, 1))) == 0) {
+                                    $t_value = trim($line);
+                                    $control[$t_key] .= "\n".$t_value;
+                                } else {
+                                    if(preg_match("#^Package|Source|Version|Priority|Section|Essential|Maintainer|Pre-Depends|Depends|Recommends|Suggests|Conflicts|Provides|Replaces|Enhances|Architecture|Filename|Size|Installed-Size|Description|Origin|Bugs|Name|Author|Homepage|Website|Depiction|Icon|Tag|Sponsor#",$line)) {
+                                        preg_match("#^([^:]*?):(.*)#", $line, $t_matches);
+                                        $t_key = trim($t_matches[1]);
+                                        $t_value = trim($t_matches[2]);
+                                        $control[$t_key] = $t_value;
+                                    }
+                                }
                             }
+
+//                            $control = array();
+//                            foreach ($control_fields as $field) {
+//                                if (!strlen($field))
+//                                    continue;
+//
+//                                $remove_character = array(“\n”, “\r\n”, “\r”);
+//
+//                                $str = str_replace($remove_character, ‘ ‘, $field);
+//
+//                                $str_trimed = str_replace(array("\n", "\r"), ' ', $field);
+//
+//                                $tmp = explode(":", $str_trimed, 2);
+//
+//                                \Log::info(implode("|",$tmp));
+//
+//                                if (is_array($tmp)) {
+//                                    $control[$tmp[0]] = trim($tmp[1]);
+//                                }
+//
+//                            }
                             // Check if basic package information (id and version) is available
                             if (!isset($control['Package']) || !isset($control['Version']))
                                 return false;

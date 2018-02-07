@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\CommentAbleTrait;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Support\Facades\Storage;
@@ -24,6 +25,7 @@ class Packages extends Model
     public $timestamps = true;
     protected $guarded = ['id'];
     protected $fillable = [
+        'user_id',
         'Package',
         'Name',
         'Version',
@@ -34,6 +36,9 @@ class Packages extends Model
     ];
 //    protected $hidden = [];
     protected $dates = ['created_at', 'updated_at'];
+    protected $casts = [
+        'Stat' => 'boolean'
+    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -54,6 +59,9 @@ class Packages extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    function user() {
+        return $this->belongsTo(User::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

@@ -14,7 +14,10 @@ class CreatePackagesTable extends Migration
     public function up()
     {
         Schema::create('packages', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+
+            $table->bigInteger('user_id')->unsigned()->index();
+
             $table->longtext('Package')->nullable();
             $table->longtext('Source')->nullable();
             $table->longtext('Version')->nullable();
@@ -55,8 +58,10 @@ class CreatePackagesTable extends Migration
             $table->longtext('Purchase_Link')->nullable();
             $table->boolean('Purchase_Link_Stat')->nullable()->default(false);
             $table->longtext('Changelog_id')->nullable();
-            $table->integer('Downloads')->nullable();
+            $table->bigInteger('Downloads')->default(0);
             $table->string('package_hash')->nullable();
+
+
 
             $table->timestamps();
         });

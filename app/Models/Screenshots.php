@@ -110,9 +110,12 @@ class Screenshots extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function package()
     {
-        return $this->belongsTo('App\Models\Packages', 'package_id', 'id');
+        return $this->belongsTo(Packages::class);
     }
 
     /*

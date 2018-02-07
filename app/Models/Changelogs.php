@@ -17,9 +17,15 @@ class Changelogs extends Model
 
     protected $table = 'changelogs';
     protected $primaryKey = 'id';
-     public $timestamps = true;
-     protected $guarded = ['id'];
-     protected $fillable = [];
+    public $timestamps = true;
+    protected $guarded = ['id'];
+    protected $fillable = [
+        'package_id',
+        'changelog_text',
+        'package_version',
+        'package_hash',
+        'package_bundle',
+    ];
     // protected $hidden = [];
     protected $dates = ['created_at', 'updated_at'];
 
@@ -34,6 +40,13 @@ class Changelogs extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function package()
+    {
+        return $this->belongsTo(Packages::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

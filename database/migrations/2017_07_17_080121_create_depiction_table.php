@@ -14,8 +14,8 @@ class CreateDepictionTable extends Migration
     public function up()
     {
         Schema::create('depictions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('package_id')->index('package_id')->nullable();
+            $table->bigIncrements('id');
+            $table->bigInteger('package_id')->unsigned()->index();
             $table->longText('long_description')->nullable();
             $table->string('mini_ios')->nullable();
             $table->string('max_ios')->nullable();

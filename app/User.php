@@ -2,6 +2,13 @@
 
 namespace App;
 
+use App\Models\Activities;
+use App\Models\Comments;
+use App\Models\Packages;
+use App\Models\Payments;
+use App\Models\Rates;
+use App\Models\UDIDs;
+use App\Models\UsersPackages;
 use App\Traits\CanUseCommentsTrait;
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Notifications\Notifiable;
@@ -52,5 +59,26 @@ class User extends Authenticatable
 
     public function isAdmin() {
         return $this->hasRole('super_admin');
+    }
+    function uploaded_packages() {
+        return $this->hasMany(Packages::class);
+    }
+    function udids() {
+        return $this->hasMany(UDIDs::class);
+    }
+    function payments() {
+        return $this->hasMany(Payments::class);
+    }
+    function activities() {
+        return $this->hasMany(Activities::class);
+    }
+    function comments() {
+        return $this->hasMany(Comments::class);
+    }
+    function rates() {
+        return $this->hasMany(Rates::class);
+    }
+    function packages() {
+        return $this->hasMany(UsersPackages::class);
     }
 }

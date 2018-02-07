@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Helpers\IMHelper;
+use App\Models\Packages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,7 +25,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $helper = new Helper();
 
@@ -31,8 +33,19 @@ class HomeController extends Controller
         $queryPackages = $queryPackages->where([
             "Stat" => true
         ]);
-        $packagesResults = $queryPackages->get();
+        // get all packages
+//        $packagesResults = $queryPackages->get();
 
+        // search package
+        $search_term = $request->input('q');
+        if ($search_term) {
+            $queryPackages = $queryPackages->where('name', 'LIKE', '%'.$search_term.'%');
+        }
+        // packages paginations
+        $packagesResults = $queryPackages->paginate(10);
+        $resaultPag = $packagesResults->toArray();
+
+//        dd($resaultPag);
         $packagesText = "";
         $packages = array();
         foreach ($packagesResults as $package) {
@@ -49,12 +62,23 @@ class HomeController extends Controller
 //        return $packages;
         $data = [];
         $data['all_packages'] = $packages;
+        $data['pagination'] = $resaultPag;
 
         return view('home', $data);
     }
 
     public function show(Request $request, $package_hash) {
+        $package = IMHelper::first("packages", [
+            'package_hash' => $package_hash,
+        ]);
+        if ($package != null) {
+            $data = [];
+            $data['package'] = $package;
 
-        return view('package_info');
+            return view('package_info', $data);
+        } else {
+            return abort(404);
+        }
+
     }
 }

@@ -50,19 +50,38 @@ class HomeController extends Controller
         $full_path = storage_path("$screenshot->image_path");
         return response()->file($full_path);
     }
+    public function icon(Request $request, $section_name) {
+        $full_path = storage_path("app/public/sections/$section_name".".png");
+        if (file_exists($full_path)) {
+            return response()->file($full_path);
+        }
+        $full_path = storage_path("app/public/sections/Tweaks.png");
+        return response()->file($full_path);
+
+    }
     public function changelogs(Request $request, $package_bundle) {
         $last_version = IMHelper::getLastVersionAvailabe($package_bundle);
         $package = IMHelper::first("packages", [
             'Package' => $package_bundle,
             'Version' => $last_version
         ]);
-        $change_logs = IMHelper::allWhere("changelogs", [
-           'package_bundle' => $package_bundle
-        ]);
-        $data = [];
-        $data['Name'] = $package->Name;
-        $data['change_logs'] = $change_logs;
+        if ($package != null) {
+            $change_logs = IMHelper::allWhere("changelogs", [
+                'package_bundle' => $package_bundle
+            ]);
+            if ($change_logs != null) {
+                $data = [];
+                $data['Name'] = $package->Name;
+                $data['change_logs'] = $change_logs;
 
-        return view('mobile.depiction.change-log',$data);
+                return view('mobile.depiction.change-log',$data);
+            } else {
+                return abort(404);
+            }
+
+        } else {
+            return abort(404);
+        }
+
     }
 }

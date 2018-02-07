@@ -13,13 +13,23 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-body text-center">
-                        <div class="pv-lg"><img class="center-block img-responsive img-circle img-thumbnail thumb96" src="https://github.com/autopear/Cydia/raw/master/MobileCydia.app/Sections/Tweaks.png" alt="Contact"></div>
-                        <h3 class="m0 text-bold">WAEnhancer 10</h3>
+                        <div class="pv-lg"><img class="center-block img-responsive img-circle img-thumbnail thumb96" src="{{url('repo/icon/'.$package->Section)}}" alt="Contact"></div>
+                        <h3 class="m0 text-bold">{{$package->Name}}</h3>
                         <div class="mv-lg">
-                            <p>The best WhatsApp tweak of all the time..</p>
+                            <p>{{$package->Description}}</p>
                         </div>
-                        <div class="text-center"><a class="btn btn-primary" href=""><i class="fa fa-arrow-circle-down" style="font-size: 17px;"></i> Download</a></div>
+                        <div class="text-center"><a class="btn btn-primary" href="{{url('debs/'.$package->package_hash)}}"><i class="fa fa-arrow-circle-down" style="font-size: 17px;"></i> Download</a></div>
                     </div>
+                    <br>
+                    <div class="mv-lg" style="margin-left: 10px;">
+                        <p>Latest ChangeLog</p>
+                    </div>
+                    <ul style="margin-left: -40px;">
+                        {!! \App\Helpers\IMHelper::first("changelogs", [
+                                'package_version' => $package->Version,
+                                'package_hash' => $package->package_hash,
+                            ])->changelog_text !!}
+                    </ul>
                 </div>
             </div>
             <div class="col-md-8">

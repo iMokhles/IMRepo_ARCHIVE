@@ -32,6 +32,15 @@
             </ul>
           </li>
 
+          <li class="treeview">
+            <a href="#"><i class="fa fa-globe"></i> <span>Reviews</span> <i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+              <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/rates') }}"><i class="fa fa-star"></i> <span>Rates</span></a></li>
+              <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/comments') }}"><i class="fa fa-wechat"></i> <span>Comments</span></a></li>
+              <li><a href="{{ url(config('backpack.base.route_prefix', 'admin').'/commentsanswers') }}"><i class="fa fa-comments"></i>Comments Answers</a></li>
+            </ul>
+          </li>
+
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/udids') }}"><i class="fa fa-list"></i> <span>UDIDs</span></a></li>
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/payments') }}"><i class="fa fa-money"></i> <span>Payments</span></a></li>
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/depictions') }}"><i class="fa fa-info-circle"></i> <span>Depictions</span></a></li>

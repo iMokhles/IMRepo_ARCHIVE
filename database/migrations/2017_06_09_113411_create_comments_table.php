@@ -14,17 +14,29 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('package_id')->nullable();
+            $table->bigIncrements('id');
+            $table->bigInteger('package_id')->unsigned()->index();
             $table->string('commentable_type')->nullable();
-            $table->index(['package_id', 'commentable_type']);
+            $table->index(['commentable_type']);
 
-            $table->string('user_id')->nullable();
+            $table->bigInteger('user_id')->unsigned()->index();
             $table->string('commented_type')->nullable();
-            $table->index(['user_id', 'commented_type']);
+            $table->index(['commented_type']);
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('package_id')
+                ->references('id')
+                ->on('packages')
+                ->onDelete('cascade');
 
             $table->longText('comment');
             $table->boolean('approved')->default(true);
+            $table->boolean('is_reply')->default(false);
+            $table->bigInteger('comment_id')->unsigned()->nullable();
             $table->double('rate', 15, 8)->nullable();
             $table->timestamps();
         });

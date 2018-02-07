@@ -124,13 +124,21 @@
 
         // Set active state on menu element
         var current_url = "{{ Request::url() }}";
-        $("ul.sidebar-menu li a").each(function() {
-          if ($(this).attr('href').startsWith(current_url) || current_url.startsWith($(this).attr('href')))
-          {
-            $(this).parents('li').addClass('active');
-          }
-        });
-        {{-- Enable deep link to tab --}}
+        var full_url = current_url+location.search;
+        var $navLinks = $("ul.sidebar-menu li a");
+        // First look for an exact match including the search string
+        var $curentPageLink = $navLinks.filter(
+            function() { return $(this).attr('href') === full_url; }
+        );
+        // If not found, look for the link that starts with the url
+        if(!$curentPageLink.length > 0){
+            $curentPageLink = $navLinks.filter(
+                function() { return $(this).attr('href').startsWith(current_url) || current_url.startsWith($(this).attr('href')); }
+            );
+        }
+
+        $curentPageLink.parents('li').addClass('active');
+                {{-- Enable deep link to tab --}}
         var activeTab = $('[href="' + location.hash.replace("#", "#tab_") + '"]');
         activeTab && activeTab.tab('show');
         $('.nav-tabs a').on('shown.bs.tab', function (e) {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
@@ -20,7 +21,11 @@ class UDIDs extends Model
     public $timestamps = true;
     protected $guarded = ['id'];
     protected $fillable = [
-
+        'user_id',
+        'udid',
+        'valid',
+        'comment',
+        'ip'
      ];
 //    protected $hidden = [];
     protected $dates = ['created_at', 'deleted_at'];
@@ -36,6 +41,13 @@ class UDIDs extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

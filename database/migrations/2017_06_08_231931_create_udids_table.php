@@ -14,14 +14,20 @@ class CreateUdidsTable extends Migration
     public function up()
     {
         Schema::create('udids', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('user_id')->nullable();
+            $table->bigIncrements('id');
+
+            $table->bigInteger('user_id')->unsigned()->index();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
             $table->string('udid')->nullable();
-            $table->integer('valid')->nullable();
-            $table->text('packages')->nullable();
+            $table->boolean('valid')->default(false);
+//            $table->integer('packages')->nullable(); // moved to users_packages table
             $table->text('comment')->nullable();
-            $table->integer('downloads')->nullable();
-            $table->bigInteger('ip')->nullable();
+//            $table->integer('downloads')->nullable();
+            $table->string('ip')->nullable();
             $table->timestamps();
         });
     }

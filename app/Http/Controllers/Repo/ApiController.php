@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Repo;
 
 use App\Helpers\IMHelper;
 use App\Models\Packages;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
@@ -20,5 +21,10 @@ class ApiController extends Controller
 
 
         return $results;
+    }
+    public function users(Request $request) {
+        $search_term = $request->input('q');
+        $users = User::where('name', 'LIKE', '%'.$search_term.'%')->paginate(10);
+        return $users;
     }
 }

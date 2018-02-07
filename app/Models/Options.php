@@ -28,7 +28,7 @@ class Options extends Model
          'active'
      ];
 //     protected $hidden = [];
-//     protected $dates = [];
+     protected $dates = ['created_at', 'updated_At'];
 
     /*
     |--------------------------------------------------------------------------

@@ -28,7 +28,7 @@ class Depiction extends Model
         'devices_support'
     ];
     // protected $hidden = [];
-    protected $dates = [];
+    protected $dates = ['created_at', 'updated_at'];
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ class Depiction extends Model
     */
     public function package()
     {
-        return $this->belongsTo('App\Models\Packages', 'package_id', 'id');
+        return $this->belongsTo(Packages::class);
     }
 
     /*
